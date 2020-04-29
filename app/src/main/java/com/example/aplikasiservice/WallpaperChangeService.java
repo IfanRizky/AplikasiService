@@ -1,3 +1,5 @@
+package com.example.aplikasiservice;
+
 import android.app.Service;
 import android.app.WallpaperManager;
 import android.content.Intent;
@@ -5,21 +7,20 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.IBinder;
-import com.example.aplikasiservice.R;
 
 public class WallpaperChangeService extends Service implements Runnable {
+
     /*referensi gambar wallpaper disimpan dalam sebuah array, wallpaper1 dan wallpaper 2 adalah nama file png atau jpeg anda*/
-
     private int wallpaperId[] = {R.drawable.hiu, R.drawable.logo};
+
     /*Deklarasi variabel yang digunakan untuk menyimpan durasi yang dipilih user*/
-
     private int waktu;
-    /*Deklarasi variabel flag untuk nge check gambar mana yang akan ditampilkan berikutnya*/
 
+    /*Deklarasi variabel flag untuk nge check gambar mana yang akan ditampilkan berikutnya*/
     private int FLAG=0;
     private Thread t;
-    /*Deklarasi 2 buag variabel bitmat untuk menyimpan gambar wallpaper*/
 
+    /*Deklarasi 2 buag variabel bitmat untuk menyimpan gambar wallpaper*/
     private Bitmap gambar;
     private Bitmap gambar1;
 
@@ -33,18 +34,18 @@ public class WallpaperChangeService extends Service implements Runnable {
     public int onStartCommand(Intent intent, int flag, int StartId)
     {
         super.onStartCommand(intent, flag, StartId);
+
         /*peroleh bundle yang dikirim melalui intent dari MainActivity*/
-
         Bundle bundle=intent.getExtras();
+
         /*baca nilai yang tersimpan dengan kunci 'durasi'*/
-
         waktu = bundle.getInt("durasi");
-        /*Inisialisasi obyek Bitmap dengan gambar wallapaper*/
 
+        /*Inisialisasi obyek Bitmap dengan gambar wallapaper*/
         gambar= BitmapFactory.decodeResource(getResources(),wallpaperId[0]);
         gambar1=BitmapFactory.decodeResource(getResources(),wallpaperId[1]);
-        /*Memulai sebuah thread agar service tetap berjalan di latar belakang*/
 
+        /*Memulai sebuah thread agar service tetap berjalan di latar belakang*/
         t = new Thread(WallpaperChangeService.this);
         t.start();
         return START_STICKY_COMPATIBILITY;
@@ -55,8 +56,8 @@ public class WallpaperChangeService extends Service implements Runnable {
         super.onDestroy();
         System.exit(0);
     }
-    /*Method run() yang berisi kode yang dieksekusi oleh thread yang baru saja dibuat*/
 
+    /*Method run() yang berisi kode yang dieksekusi oleh thread yang baru saja dibuat*/
     @Override
     public void run() {
         //TODO Auto-generated method stub
